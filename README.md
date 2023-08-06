@@ -1,1 +1,1 @@
-# 종합설계
+# 종합설계(CapstoneDesign)
