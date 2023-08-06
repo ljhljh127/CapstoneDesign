@@ -50,7 +50,7 @@
   ```
   ### 6. 실행
   ```
-  sudo ./h264_v4l2_rtspserver/v4l2rtspserver -F 25 -W 1280 -H 720 -P 8555 /dev/video0
+  sudo ./h264_v4l2_rtspserver/h264_v4l2_rtspserver -F 25 -W 1280 -H 720 -P 8555 /dev/video0
   ```
 
 
