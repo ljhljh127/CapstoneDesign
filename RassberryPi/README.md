@@ -48,8 +48,14 @@
   ```
   bash install-openssl.sh
   ```
+  ### 6. 실행
+  ```
+  sudo ./h264_v4l2_rtspserver/v4l2rtspserver -F 25 -W 1280 -H 720 -P 8555 /dev/video0
+  ```
 
-  본 문서는 https://remnant24c.tistory.com/357 를 참고하였으며
-  설치시 에러가 발생하는 부분의 코드를 수정하여 놓았습니다.
-  (h264_v4l2_rtspserver의 src/cpp 에서 에러가 발생하였음)
+
+
+본 문서는 https://remnant24c.tistory.com/357 를 참고하였으며
+설치시 에러가 발생하는 부분의 코드를 수정하여 놓았습니다.
+(h264_v4l2_rtspserver의 src/cpp 에서 에러가 발생하였음)
 
