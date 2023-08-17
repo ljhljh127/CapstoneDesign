@@ -3,14 +3,14 @@
 ## RTSP 설정
 
   ### 1. 우분투(Rasbian OS)를 모두 업데이트 시킨다.
-  ```
+  ```shell
       sudo apt-get update
       sudo apt-get upgrade
   ```
 
         
   ### 2. 필요한 유틸리티를 설치한다.
-  ```
+  ```shell
       sudo apt-get install v4l-utils
       sudo modprobe bcm2835-v4l2
       sudo apt-get install liblivemedia-dev libv4l-dev cmake libasound2-dev
@@ -21,19 +21,19 @@
    h264_v4l2_rtspserver
 
   ### 4. 소스를 컴파일한다.
-  ```
-      cd h264_v4l2_rtspserver
-      sudo cmake .
-      sudo make
+  ```shell
+    cd h264_v4l2_rtspserver
+    sudo cmake .
+    sudo make
   ```
 
        
   
   ### 5. OpenSSL 에러가 날시 편집기를 열어 다음과 같은 내용을 기술한 후 bash 명령으로 실행한다.
-  ```
+  ```shell
   vim install-openssl.sh
   ```
-  ```
+  ```shell
   OPENSSL_VER=1.1.0g
   mkdir openssl
   cd openssl
@@ -45,11 +45,11 @@
   sudo make install
   ```
 
-  ```
+  ```shell
   bash install-openssl.sh
   ```
   ### 6. 실행
-  ```
+  ```shell
   sudo ./h264_v4l2_rtspserver/h264_v4l2_rtspserver -F 25 -W 1280 -H 720 -P 8555 /dev/video0
   ```
 

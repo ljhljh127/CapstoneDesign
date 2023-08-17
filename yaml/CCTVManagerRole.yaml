@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  namespace: cctv
+  name: cctvManager
+
+rules:
+- apiGroups: [""] # 코어 API 그룹을 의미함 
+  resources: ["*"] # 모든 리소스에 대한 권한을 줌
+  verbs: ["*"] # 모든 동작 가능하게(관리자이기떄문)
+
+
