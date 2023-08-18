@@ -1,10 +1,11 @@
+# 나중에 CCTV1-config의 형태로 변경 늘어날 때마다 1,2,....fstring으로 받아서 처리함 될듯..
+# metadata 부분에서
 import requests
 import os
 
 def call_k8s_api(ENDPOINT, JWT_TOKEN):
     api = f"{ENDPOINT}/api/v1/namespaces/cctv/configmaps"
     headers = {"Authorization": f"Bearer {JWT_TOKEN}", "Content-Type": "application/json"}
-
     configmap_data = {
         "apiVersion": "v1",
         "kind": "ConfigMap",
