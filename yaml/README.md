@@ -19,7 +19,7 @@
 - 생성된 Cluster Role을 바인딩하는 yaml
 
 ---
-### 적용 
+### 적용법
 먼저 cctv라는 namespace를 생성 후
 ```
 kubectl create namespace cctv
