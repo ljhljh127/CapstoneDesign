@@ -13,7 +13,6 @@ class PodResponse:
 
 
 def call_k8s_api(ENDPOINT, JWT_TOKEN):
-    """kubernetes API 호출"""
     api = f"{ENDPOINT}/api/v1/namespaces/cctv/pods"
     headers = {"Authorization": f"Bearer {JWT_TOKEN}", "Accept": "application/json"}
 
@@ -30,7 +29,7 @@ def get_pods_cctv_namespace():
     """cctv namespace에 있는 pod 조회"""
     ENDPOINT = ""
     JWT_TOKEN = ""
-
+    
     if ENDPOINT == "":
         raise "Check ENDPOINT"
 
