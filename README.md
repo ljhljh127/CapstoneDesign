@@ -1,12 +1,19 @@
 # 종합설계(CapstoneDesign)
 
-### ※ 개발 규칙
+### 개발 규칙
 
 **main 브랜치** : 모든 통합이 완료된 후 최종본을 적용할 브랜치(release)<br>
 **develop 브랜치** : 각 기능들을 만든 후 통합시키는 브랜치<br>
-**feature/~ 브랜치** : 각 기능을 만드는 브랜치
+**feature/~ 브랜치** : 각 기능을 만드는 브랜치<br>
 
-시작하기
+<span style="color:red">**주의사항**</span><br>
+- 충돌을 막기 위하여 서로의 코드를 건드릴 때는 서로 소통 후 진행
+- 같은 폴더에서 개발할 때 안에 개인 이름으로 된 폴더 만들고 진행(꼬임 방지)
+
+
+<br>
+
+**시작하기**
  1. git clone을 진행한다.
     ```
     git clone https://github.com/ljhljh127/CapstoneDesign.git
@@ -38,4 +45,8 @@
     <img src= "./MarkdownImage/jeonghyeon/main readme/6.PNG" width="600" height="300"><br><br>
 
  7. 요청이 수락되면 파생된 브랜치가 develop으로 merge된다.
-    
+<br><br>
+
+
+
+
