@@ -31,11 +31,11 @@
       <img src= "./MarkdownImage/jeonghyeon/main readme/3.PNG" width="400" height="200"><br><br>  
 
  5. 기능의 추가, 변경사항 이 있을 때 pull/request를 요청한다.
-      <img src= "./MarkdownImage/jeonghyeon/main readme/4.PNG" width="400" height="200"><br><br>
-      <img src= "./MarkdownImage/jeonghyeon/main readme/5.PNG" width="400" height="200"><br><br>
+      <img src= "./MarkdownImage/jeonghyeon/main readme/4.PNG" width="600" height="300"><br><br>
+      <img src= "./MarkdownImage/jeonghyeon/main readme/5.PNG" width="600" height="300"><br><br>
 
  6. 리뷰어로 전체 팀원을 등록 후 담당자를 ljhljh127로 설정한다.
-    <img src= "./MarkdownImage/jeonghyeon/main readme/6.PNG" width="400" height="200"><br><br>
+    <img src= "./MarkdownImage/jeonghyeon/main readme/6.PNG" width="600" height="300"><br><br>
 
  7. 요청이 수락되면 파생된 브랜치가 develop으로 merge된다.
     
