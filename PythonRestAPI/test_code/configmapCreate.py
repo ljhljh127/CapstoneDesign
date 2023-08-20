@@ -10,7 +10,7 @@ def call_k8s_api(ENDPOINT, JWT_TOKEN):
         "apiVersion": "v1",
         "kind": "ConfigMap",
         "metadata": {"name": "rtsp-config"},
-        "data": {"RTSP_URL": "rtsp://test56785678"}
+        "data": {}
     }
 
     try:
@@ -25,7 +25,9 @@ def call_k8s_api(ENDPOINT, JWT_TOKEN):
 
 def create_configmap():
     ENDPOINT = ""
-    JWT_TOKEN = ""
+    JWT_TOKEN = -""
+
+
 
     if ENDPOINT == "":
         raise ValueError("Check ENDPOINT")
