@@ -98,6 +98,14 @@ def Update_deployment(cctv_name):
     
     return response
 
+# 디플로이먼트 삭제
+def Delete_deployment(cctv_name):
+    _resource_type="deployments"
+    response=k8sAPI.call_k8s_api_delete_apps_v1(_resource_type, cctv_name)
+
+    return response
+
+
 # CCTV 생성
 def CCTV_CREATE(cctv_name, rtsp_url):
     cfu_result=Update_configmap(f"{cctv_name}",f"rtsp://{rtsp_url}")
@@ -112,9 +120,18 @@ def CCTV_UPDATE(cctv_name, rtsp_url):
         dmu_result=Update_deployment(cctv_name)
         print(dmu_result)
 
+# CCTV 삭제
+def CCTV_DELETE(cctv_name):
+    dfd_result=Delete_deployment(cctv_name)
+    if dfd_result.status_code == 200:
+        cfu_result=Update_configmap(cctv_name, None)
+        print(cfu_result)
+
+
 
 # 나중에 fastapi와 연동해서 아래 함수 호출 인자전달
 if __name__ == "__main__":
     # CCTV_CREATE("cctv1","rtsp://test")
-    CCTV_UPDATE("cctv1","rtsp://test2")
+    # CCTV_UPDATE("cctv1","rtsp://test2")
+    # CCTV_DELETE("cctv1")
     

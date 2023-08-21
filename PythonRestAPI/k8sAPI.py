@@ -35,7 +35,21 @@ def call_k8s_api_put(resource_type, resource_name, resource_data):
     return response
 
 
-# deployment update apps/v1 대상 api
+def call_k8s_api_get(resource_type):
+    api = f"{URL}/api/v1/namespaces/cctv/{resource_type}"
+    headers = {"Authorization": f"Bearer {JWT_TOKEN}", "Accept": "application/json"}
+
+    try:
+        response = requests.get(api, headers=headers, verify=False)
+    except Exception as e:
+       raise Exception(f"Get {resource_type} failed: {e}")
+    if not response.ok:
+        raise Exception("Status is not ok")
+
+    return response
+
+
+# deployment apps/v1 대상 api
 def call_k8s_api_put_apps_v1(resource_type, resource_name, resource_data):
     api = f"{URL}/apis/apps/v1/namespaces/cctv/{resource_type}/{resource_name}"
     headers = {"Authorization": f"Bearer {JWT_TOKEN}",  "Content-Type": "application/merge-patch+json"}
@@ -50,14 +64,16 @@ def call_k8s_api_put_apps_v1(resource_type, resource_name, resource_data):
     return response
 
 
-def call_k8s_api_get(resource_type):
-    api = f"{URL}/api/v1/namespaces/cctv/{resource_type}"
+def call_k8s_api_delete_apps_v1(resource_type,resource_name):
+    api = f"{URL}/apis/apps/v1/namespaces/cctv/{resource_type}/{resource_name}"
     headers = {"Authorization": f"Bearer {JWT_TOKEN}", "Accept": "application/json"}
 
+
     try:
-        response = requests.get(api, headers=headers, verify=False)
+        response = requests.delete(api, headers=headers, verify=False)
+
     except Exception as e:
-       raise Exception(f"Get {resource_type} failed: {e}")
+       raise Exception(f"Update {resource_type} failed: {e}")
     if not response.ok:
         raise Exception("Status is not ok")
 
