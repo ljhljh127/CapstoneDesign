@@ -113,7 +113,7 @@ def CCTV_CREATE(cctv_name, rtsp_url):
         dmc_result=Create_deployment(cctv_name)
         print(dmc_result)
 
-# CCTV 주소 Update
+# CCTV 업데이트
 def CCTV_UPDATE(cctv_name, rtsp_url):
     cfu_result=Update_configmap(f"{cctv_name}", rtsp_url)
     if cfu_result.status_code == 200:
@@ -124,7 +124,7 @@ def CCTV_UPDATE(cctv_name, rtsp_url):
 def CCTV_DELETE(cctv_name):
     dfd_result=Delete_deployment(cctv_name)
     if dfd_result.status_code == 200:
-        cfu_result=Update_configmap(cctv_name, None)
+        cfu_result=Update_configmap(f"{cctv_name}",None)
         print(cfu_result)
 
 
@@ -133,5 +133,5 @@ def CCTV_DELETE(cctv_name):
 if __name__ == "__main__":
     # CCTV_CREATE("cctv1","rtsp://test")
     # CCTV_UPDATE("cctv1","rtsp://test2")
-    # CCTV_DELETE("cctv1")
+    CCTV_DELETE("cctv1")
     
