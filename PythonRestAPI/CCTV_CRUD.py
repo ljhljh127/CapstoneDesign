@@ -7,17 +7,29 @@ CCTV 생성 시나리오
 CCTV 수정 시나리오
 생성과 동일하게 진행 가능 다만 Deployment를 post가아닌 patch로 쏘면됨
 but patch 시 api가 다르니 유의 apis/apps/v1, api/v1
+
+CCTV 삭제 시나리오
+CCTV 이름과 매핑된 디플로이먼트와 컨피그맵 수정 필요
+디플로이먼트는 삭제, ConfigMap의 해당 cctv키와 연결된 키값 None으로 만들어 제거
+
+CCTV 조회 시나리오
+현재 노드상에 있는 모든 CCTV의 상태와 목록을 조회 가능해야함
+API로 긁어와서 양식맞춰 디코딩 해야할듯 
 """
-import requests
-import os
+
 import k8sAPI
+import CCTV_Class
 from datetime import datetime
+import json
+
+
+
+
 
 # 환경 변수로 사용되는 컨피그맵은 자동으로 업데이트되지 않으며 파드를 다시 시작해야 한다.(쿠버네티스 공식문서)
 # ConfigMap Update시 deployment Update 전략을 위해서 현재시간을 어노테이션으로 넣어줌
 current_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
-print(current_time)
 
 # deployment_resource_data
 def Setting_deployment_resource(cctv_name):
@@ -105,6 +117,16 @@ def Delete_deployment(cctv_name):
 
     return response
 
+# 디플로이먼트 조회
+def GET_deployment():
+    _resource_type="deployments"
+    response=k8sAPI.call_k8s_api_get_v1(_resource_type)
+
+    return response
+
+
+
+
 
 # CCTV 생성
 def CCTV_CREATE(cctv_name, rtsp_url):
@@ -127,11 +149,23 @@ def CCTV_DELETE(cctv_name):
         cfu_result=Update_configmap(f"{cctv_name}",None)
         print(cfu_result)
 
+# CCTV 목록 조회
+def CCTV_GET():
+    dmg_result=GET_deployment()
+    deployment_List = CCTV_Class.DeploymentResponse(**dmg_result.json())
+
+    print(len(deployment_List.items))
+    for cctv in deployment_List.items:
+        print(f'{cctv["metadata"]["name"]} 상태: {cctv["status"]["readyReplicas"]}')
+    
 
 
 # 나중에 fastapi와 연동해서 아래 함수 호출 인자전달
 if __name__ == "__main__":
-    # CCTV_CREATE("cctv1","rtsp://test")
-    # CCTV_UPDATE("cctv1","rtsp://test2")
-    CCTV_DELETE("cctv1")
+    print("")
+    # CCTV_UPDATE("cctv1","rtsp://test1")
+    # CCTV_DELETE("cctv1")
+    # CCTV_DELETE("cctv2")
+    # CCTV_DELETE("cctv3")
+    # CCTV_GET()
     
