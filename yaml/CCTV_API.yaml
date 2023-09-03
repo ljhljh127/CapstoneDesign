@@ -1,0 +1,52 @@
+# cctv-api-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cctv-api-secret
+  namespace: cctv-api
+  annotations:
+    kubernetes.io/service-account.name: cctv-api
+type: kubernetes.io/service-account-token
+
+---
+
+# ServiceAccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cctv-api
+  namespace: cctv-api
+secrets:
+- name: cctv-api-secret
+
+---
+
+# CCTVManagerRole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  namespace: cctv-api
+  name: cctvManager
+
+rules:
+- apiGroups: ["","apps"] # 코어 API 그룹을 의미함,apps API그룹도 추가함
+  resources: ["*"] # 모든 리소스에 대한 권한을 줌
+  verbs: ["*"] # 모든 동작 가능하게(관리자이기떄문)
+
+---
+
+# CCTVMangerRoleBinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cctvClusterRoleBinding
+  namespace: cctv-api
+subjects:
+- kind: ServiceAccount
+  name: cctv-api
+  namespace: cctv-api
+roleRef:
+ kind: ClusterRole
+ name: cctvManager
+ apiGroup: rbac.authorization.k8s.io
+

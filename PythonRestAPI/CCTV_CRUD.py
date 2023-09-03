@@ -57,19 +57,22 @@ def Setting_deployment_resource(cctv_name):
                     }
                 },
                 "spec": {
+                    "volumes": [
+                        {
+                            "name": "config-volume",
+                            "configMap": {
+                                "name": "rtsp-config",  # ConfigMap 이름을 여기에 설정
+                            }
+                        }
+                    ],
                     "containers": [
                         {
                             "name": "cctv-container",
-                            "image": "nginx", # 테스트이미지
-                            "env": [
+                            "image": "nginx",  # 테스트 이미지
+                            "volumeMounts": [
                                 {
-                                    "name": "RTSP_URL",
-                                    "valueFrom": {
-                                        "configMapKeyRef": {
-                                            "name": "rtsp-config",
-                                            "key": cctv_name
-                                        }
-                                    }
+                                    "name": "config-volume",
+                                    "mountPath": "/etc/config",  # ConfigMap을 마운트할 경로
                                 }
                             ]
                         }
@@ -130,7 +133,7 @@ def GET_deployment():
 
 # CCTV 생성
 def CCTV_CREATE(cctv_name, rtsp_url):
-    cfu_result=Update_configmap(f"{cctv_name}",f"rtsp://{rtsp_url}")
+    cfu_result=Update_configmap(f"{cctv_name}",rtsp_url)
     if cfu_result.status_code == 200:
         dmc_result=Create_deployment(cctv_name)
         print(dmc_result)
@@ -163,7 +166,8 @@ def CCTV_GET():
 # 나중에 fastapi와 연동해서 아래 함수 호출 인자전달
 if __name__ == "__main__":
     print("")
-    # CCTV_UPDATE("cctv1","rtsp://test1")
+    # CCTV_CREATE("cctv2","rtsp://test123")
+    CCTV_UPDATE("cctv1","rtsp://test456789")
     # CCTV_DELETE("cctv1")
     # CCTV_DELETE("cctv2")
     # CCTV_DELETE("cctv3")
