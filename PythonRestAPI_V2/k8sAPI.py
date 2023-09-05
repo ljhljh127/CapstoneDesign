@@ -10,7 +10,7 @@ CCTV 수정 시나리오
 1. 해당 CCTV 이름과 동일한 Configmap 수정
 
 CCTV 삭제 시나리오
-CCTV 이름과 매핑된 디플로이먼트와 컨피그맵 수정 필요
+CCTV 이름과 매핑된 디플로이먼트와 컨피그맵 삭제 필요
 디플로이먼트, 해당 ConfigMap 삭제
 
 CCTV 조회 시나리오
@@ -29,7 +29,7 @@ config.verify_ssl=True
 
 # k8s api
 core_Api = client.CoreV1Api(client.ApiClient(config))
-v1_Api = client.AppsV1Api(client.ApiClient(config))
+apps_v1_Api = client.AppsV1Api(client.ApiClient(config))
 
 
 # # 토큰과 인증관련 설정(개발 용)
@@ -52,7 +52,7 @@ def Create_configmap(cctv_name,rtsp_url):
         ),
         data ={"RTSP_URL":rtsp_url}
     )
-    core_Api.create_namespaced_config_map(namespace,configmap)
+    response = core_Api.create_namespaced_config_map(namespace,configmap)
    
 
 
@@ -66,6 +66,7 @@ def Update_configmap(cctv_name,rtsp_url):
             body=configmap
         )
 
+
 # 컨피그맵 삭제
 def Delete_configmap(cctv_name):
     core_Api.delete_namespaced_config_map(cctv_name,namespace)
@@ -74,8 +75,7 @@ def Delete_configmap(cctv_name):
 # 컨피그맵 조회
 def READ_configmap(cctv_name):
     configmap = core_Api.read_namespaced_config_map(cctv_name,namespace)
-    value = configmap.data.get("RTSP_URL", "등록된 rtsp 주소가 없습니다.")
-    return value
+    return configmap.data.get("RTSP_URL", "등록된 rtsp 주소가 없습니다.")   
 
 
 
@@ -141,16 +141,4 @@ def Delete_deployment(cctv_name):
 
 # 디플로이먼트 조회
 def READ_deployment():
-    deployments = apps_v1_Api.list_namespaced_deployment(namespace)
-    return deployments
-
-
-
-
-
-if __name__ == "__main__":
-    Create_configmap("cctv2","testss2")
-    # Update_configmap("cctv1","test2")
-    # Delete_configmap("cctv2")
-    # Delete_deployment("cctv2")
-    # deployments=READ_deployment()
+    return apps_v1_Api.list_namespaced_deployment(namespace)
