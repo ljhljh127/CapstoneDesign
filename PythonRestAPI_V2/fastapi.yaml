@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-deployment
+  namespace: cctv-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cctv-api
+  template:
+    metadata:
+      labels:
+        app: cctv-api
+    spec:
+      serviceAccountName: cctv-api  # cctv-api 서비스 어카운트 설정
+      nodeSelector:
+        kubernetes.io/hostname: worker0 
+      containers:
+      - name: fastapi-container
+        image: leejeonghyeon1127/fastapi:1.0
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: code-volume
+          mountPath: /app
+      volumes:
+      - name: code-volume
+        hostPath:
+          path: /home/CapstoneDesign/PythonRestAPI_V2   # worker0의 Volume경로
