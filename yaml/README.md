@@ -18,15 +18,18 @@
 ### CCTVMangerRoleBinding.yaml
 - 생성된 Cluster Role을 바인딩하는 yaml
 
+### CCTV_API.yaml
+- 위 내용을 통합한 yaml
+
 ---
 ### 적용법
-먼저 cctv라는 namespace를 생성 후
+먼저 cctv-api라는 namespace를 생성 후
 ```
-kubectl create namespace cctv
+kubectl create namespace cctv-api
 ```
 
-아래의 명령어를 사용하여 위부터 순차적으로 적용
+아래의 명령어를 사용하여 적용
 ```
-kubectl apply -f ~
+kubectl apply -f CCTV_API.yaml
 ```
 
