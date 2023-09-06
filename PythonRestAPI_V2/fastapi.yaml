@@ -28,3 +28,18 @@ spec:
       - name: code-volume
         hostPath:
           path: /home/CapstoneDesign/PythonRestAPI_V2   # worker0의 Volume경로
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-service
+  namespace: cctv-api
+spec:
+  type: NodePort
+  selector:
+    app: cctv-api
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      nodePort: 30080
