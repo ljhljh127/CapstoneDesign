@@ -1,3 +1,16 @@
+# Create NameSpace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cctv
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cctv-api
+---
+
 # cctv-api-secret.yaml
 apiVersion: v1
 kind: Secret
