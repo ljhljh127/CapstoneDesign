@@ -3,7 +3,7 @@ import base64
 import numpy as np
 
 # RTSP URL
-url = 'rtsp://192.168.0.7:8555/unicast'
+url = 'rtsp://119.65.155.86:8555/unicast'
 
 # 해상도
 width = 1280
