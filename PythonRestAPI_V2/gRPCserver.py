@@ -7,25 +7,40 @@ import image_transfer_pb2_grpc
 
 class ImageTransferService(image_transfer_pb2_grpc.ImageTransferServiceServicer):
     def PostImage(self, request, context):
-        # 클라이언트에 성공 여부 전송
-        shape = (1080, 1920, 3)  # 원하는 이미지 모양
-        image = self.decode_image(request.image_data, shape)
+        
+        image = self.decode_image(request.image_data)
+        # CCTV ID
         cctv_id =request.cctv_id
-        self.save_image(image,cctv_id)  # 이미지를 파일로 저장
+
+        # 이미지 저장
+        self.save_image(image,cctv_id)
+
+        # 압사 위험 여부
+        alert_text = request.alert
+        self.save_alert_to_file(cctv_id, alert_text)
+
         response = image_transfer_pb2.ImageResponse(message="success")
         return response
 
-    def decode_image(self, image_data, shape):
-        # 이미지 데이터를 numpy 배열로 변환
+    # 이미지 저장함수
+    def decode_image(self, image_data):
+
+        # 데이터를 numpy 배열로 변환
+        shape = (1080, 1920, 3) 
         image = np.frombuffer(image_data, dtype=np.uint8)
-        # 원하는 모양으로 변환
+        # 형식 변환
         image = image.reshape(shape)
-        # print(image)
         return image
 
     def save_image(self, image, cctv_id):
         # 이미지를 파일로 저장
-        cv2.imwrite(f'/app/CCTV/{cctv_id}.jpg', image)  # 이미지를 저장
+        cv2.imwrite(f'/app/CCTV/{cctv_id}.jpg', image)
+
+    def save_alert_to_file(self, cctv_id, alert_text):
+        # alert 정보를 파일로 저장
+        file_path = f'/app/Alert/{cctv_id}.txt'
+        with open(file_path, 'w') as alert_file:
+            alert_file.write(str(alert_text))
 
 def serve():
     server_option = (

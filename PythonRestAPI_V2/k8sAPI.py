@@ -114,7 +114,7 @@ def Setting_deployment_resource(cctv_name):
                     "containers": [
                         {
                             "name": "cctv-container",
-                            "image": "leejeonghyeon1127/yolov6_test:2.0",  # 테스트 이미지
+                            "image": "leejeonghyeon1127/yolov6_test:4.0",  # 테스트 이미지
                             "volumeMounts": [
                                 {
                                     "name": "config-volume",
