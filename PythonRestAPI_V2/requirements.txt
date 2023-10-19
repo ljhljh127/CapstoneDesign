@@ -1,0 +1,8 @@
+fastapi==0.68.0
+pydantic==1.8.2
+SQLAlchemy==1.4.23
+mysqlclient==2.1.0
+kubernetes
+opencv-python-headless
+grpcio
+protobuf

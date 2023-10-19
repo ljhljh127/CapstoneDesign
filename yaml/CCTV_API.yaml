@@ -81,21 +81,12 @@ spec:
         app: cctv-api
     spec:
       serviceAccountName: cctv-api  # cctv-api 서비스 어카운트 설정
-      nodeSelector:
-        kubernetes.io/hostname: leejeonghyeon 
       containers:
       - name: fastapi-container
-        image: leejeonghyeon1127/fastapi:1.0
+        image: leejeonghyeon1127/fastapi:4.0
         ports:
         - containerPort: 8000
         - containerPort: 50051
-        volumeMounts:
-        - name: code-volume
-          mountPath: /app
-      volumes:
-      - name: code-volume
-        hostPath:
-          path: /home/leejeonghyeon/바탕화면/CapstoneDesign/PythonRestAPI_V2   # Volume경로
 ---
 apiVersion: v1
 kind: Service

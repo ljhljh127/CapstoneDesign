@@ -16,10 +16,10 @@ app = FastAPI(title="CCTV_CRUD")
 app.description = "쿠버네티스 환경에서 CCTV를 관리하기 위한 API"
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 모든 오리진을 허용하려면 "*"를 사용
+    allow_origins=["*"], 
     allow_credentials=True,
-    allow_methods=["*"],  # 모든 HTTP 메서드 허용
-    allow_headers=["*"],  # 모든 HTTP 헤더 허용
+    allow_methods=["*"], 
+    allow_headers=["*"],
 )
 
 # 에러 핸들링을 위한 함수
@@ -48,6 +48,7 @@ def Update_CCTV(cctv_name,rtsp_url):
     try:
         k8sAPI.Update_configmap(cctv_name,rtsp_url)
         k8sAPI.Delete_deployment(cctv_name)
+        delete_cctv_files(cctv_name)
         k8sAPI.Create_deployment(cctv_name)
         return {"status": "success", "message": "CCTV RTSP 주소 변경이 완료되었습니다."}
     except Exception as e:
