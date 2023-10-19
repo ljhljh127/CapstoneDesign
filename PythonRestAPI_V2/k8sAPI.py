@@ -50,7 +50,8 @@ def Create_configmap(cctv_name,rtsp_url):
             name = cctv_name,
             namespace = namespace
         ),
-        data ={"RTSP_URL":rtsp_url}
+        data ={"RTSP_URL":rtsp_url,
+               "CCTV_NAME":cctv_name}
     )
     response = core_Api.create_namespaced_config_map(namespace,configmap)
    
@@ -113,7 +114,7 @@ def Setting_deployment_resource(cctv_name):
                     "containers": [
                         {
                             "name": "cctv-container",
-                            "image": "nginx",  # 테스트 이미지
+                            "image": "leejeonghyeon1127/yolov6_test:2.0",  # 테스트 이미지
                             "volumeMounts": [
                                 {
                                     "name": "config-volume",
