@@ -85,4 +85,45 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(document).ready(function() {
+        $("#getCCTVButton").click(function() {
+            showSpinner();
+
+            $.ajax({
+                type: "GET",
+                url: baseurl + "/cctvs/",
+                dataType: "json",
+                success: function(response) {
+                    hideSpinner();
+                    displayCCTVInfo(response);
+                },
+                error: function(xhr, status, error) {
+                    alert("CCTV 조회 중 오류 발생:\n" + xhr.responseText);
+                    hideSpinner();
+                }
+            });
+        });
+
+        // CCTV 정보를 표시하는 함수
+        function displayCCTVInfo(data) {
+            var cctvDataDiv = $("#cctvData");
+            cctvDataDiv.empty();  // 이전 데이터를 비우고 새로운 데이터 추가
+
+            var table = "<table><thead><tr><th>CCTV</th><th>READY</th><th>RTSPURL</th></tr></thead><tbody>";
+
+            for (var key in data) {
+                if (data.hasOwnProperty(key)) {
+                    var cctvInfo = data[key];
+                    var ready = cctvInfo.ready;
+                    var rtspUrl = cctvInfo.rtsp_url;
+
+                    table += "<tr><td>" + key + "</td><td>" + ready + "</td><td>" + rtspUrl + "</td></tr>";
+                }
+            }
+
+            table += "</tbody></table>";
+            cctvDataDiv.append(table);
+        }
+    })
 });
