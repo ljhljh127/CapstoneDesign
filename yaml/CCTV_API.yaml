@@ -83,7 +83,7 @@ spec:
       serviceAccountName: cctv-api  # cctv-api 서비스 어카운트 설정
       containers:
       - name: fastapi-container
-        image: leejeonghyeon1127/fastapi:4.0
+        image: leejeonghyeon1127/fastapi:6.0
         ports:
         - containerPort: 8000
         - containerPort: 50051

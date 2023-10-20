@@ -8,6 +8,7 @@ from video_streaming import stream_image
 from fastapi.responses import JSONResponse
 import os
 import time
+from pydantic import BaseModel
 
 
 
@@ -22,6 +23,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# BaseModel
+class CCTVRequest(BaseModel):
+    cctv_name: str
+    rtsp_url: str
+
+
 # 에러 핸들링을 위한 함수
 def Error_Handling(e):
     if e.__class__== kubernetes.client.exceptions.ApiException:
@@ -34,8 +41,10 @@ def Error_Handling(e):
 
 
 @app.post("/cctvs", status_code=201,tags=["CCTV CREATE"])
-def Create_CCTV(cctv_name,rtsp_url):
+def Create_CCTV(request_data: CCTVRequest):
     try:
+        cctv_name = request_data.cctv_name
+        rtsp_url = request_data.rtsp_url
         k8sAPI.Create_configmap(cctv_name,rtsp_url)
         k8sAPI.Create_deployment(cctv_name)
         return {"status": "success", "message": "CCTV 추가가 완료되었습니다."}
@@ -44,8 +53,9 @@ def Create_CCTV(cctv_name,rtsp_url):
 
 
 @app.put("/cctvs/{cctv_name}",tags=["CCTV UPDATE"])
-def Update_CCTV(cctv_name,rtsp_url):
+def Update_CCTV(cctv_name:str, request_data: CCTVRequest):
     try:
+        rtsp_url = request_data.rtsp_url
         k8sAPI.Update_configmap(cctv_name,rtsp_url)
         k8sAPI.Delete_deployment(cctv_name)
         delete_cctv_files(cctv_name)
