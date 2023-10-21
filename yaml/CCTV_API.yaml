@@ -81,20 +81,12 @@ spec:
         app: cctv-api
     spec:
       serviceAccountName: cctv-api  # cctv-api 서비스 어카운트 설정
-      nodeSelector:
-        kubernetes.io/hostname: worker0 
       containers:
       - name: fastapi-container
-        image: leejeonghyeon1127/fastapi:1.0
+        image: leejeonghyeon1127/fastapi:6.0
         ports:
         - containerPort: 8000
-        volumeMounts:
-        - name: code-volume
-          mountPath: /app
-      volumes:
-      - name: code-volume
-        hostPath:
-          path: /home/CapstoneDesign/PythonRestAPI_V2   # worker0의 Volume경로
+        - containerPort: 50051
 ---
 apiVersion: v1
 kind: Service
@@ -107,6 +99,38 @@ spec:
     app: cctv-api
   ports:
     - protocol: TCP
+      name: http    
       port: 8000
       targetPort: 8000
       nodePort: 30080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grpc-service
+  namespace: cctv-api
+spec:
+  type: ClusterIP
+  selector:
+    app: cctv-api
+  ports:
+    - protocol: TCP
+      name: grpc
+      port: 50051
+      targetPort: 50051
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cctv-api-dns-reader-binding  # 적절한 이름 선택
+  namespace: cctv  # ClusterRoleBinding이 적용될 네임스페이스 선택 (cctv)
+subjects:
+- kind: ServiceAccount
+  name: cctv-api  # cctv-api 네임스페이스의 ServiceAccount 이름
+  namespace: cctv  # ServiceAccount가 속한 네임스페이스 (cctv)
+roleRef:
+  kind: ClusterRole
+  name: cctvManager  # cctv-api 네임스페이스의 ClusterRole 이름
+  apiGroup: rbac.authorization.k8s.io

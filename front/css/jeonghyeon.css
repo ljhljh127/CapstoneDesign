@@ -1,0 +1,45 @@
+.loading-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: none;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.blur {
+    filter: blur(3px); /* 원하는 흐림 정도를 지정하세요 */
+    pointer-events: none;
+}
+
+
+
+#videoFrame {
+    transform: scale(0.3); /* 원하는 배율로 조절 (예: 0.5은 50% 크기) */
+    transform-origin: 0 0; /* 크기 조절 기준점 설정 (예: 좌상단) */
+}
+
+
+td {
+    vertical-align: top;
+}
+
+.status-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; /* 이 속성이 동그라미 모양을 만듭니다 */
+    background-color: green; /* 초기 상태를 초록색으로 설정합니다 */
+}
