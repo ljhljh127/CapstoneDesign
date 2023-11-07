@@ -201,13 +201,14 @@ function updateCCTVStatus(data) {
                         if (response.Alert === 'True') {
                             statusElement.css("background-color", "red");
                             console.log(response.Alert)
+                            
                         } else {
                             statusElement.css("background-color", "green");
                             console.log(response.Alert)
                         }
                     },
                     error: function(xhr, status, error) {
-                        alert("압사위험 조회 중 오류 발생:" + xhr.responseText);
+                        alert("데이터를 불러오는 중 입니다:" + xhr.responseText);
                     }
                 });
             })(key);
