@@ -20,11 +20,17 @@
 **Backend**
 <br><img src= "./MarkdownImage/jeonghyeon/main readme/nginx.png"  width="130" height="100">
 <img src= "./MarkdownImage/jeonghyeon/main readme/fastapi.png" width="130" height="100">
-<img src= "./MarkdownImage/jeonghyeon/main readme/grpc.png"  width="130" height="100"><br><br
+<img src= "./MarkdownImage/jeonghyeon/main readme/grpc.png"  width="130" height="100"><br><br>
 - Nginx: 웹서버를 위해 사용
 - FastAPI: 쿠버네티스 API를 외부에서 fastAPI를 통하여 호출, 실시간 영상을 받아오기 위해 사용
 - gRPC 클러스터내 파드간 API 호출보다 빠른 전송을 위해 사용하였음
+<br><br>
+### 시스템 구조도
+<img src= "./MarkdownImage/jeonghyeon/main readme/arc.png">
+<br><br>
 
+### 플로우 차트
+<img src= "./MarkdownImage/jeonghyeon/main readme/flow.png">
 ---
 ### 개발 규칙
 
