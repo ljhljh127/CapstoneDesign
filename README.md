@@ -18,9 +18,9 @@
 - OpenCV: 영상 처리를 위하여 사용
 
 **Backend**
-<br><img src= "./MarkdownImage/jeonghyeon/main readme/nginx.png">
-<img src= "./MarkdownImage/jeonghyeon/main readme/fastapi.png">
-<img src= "./MarkdownImage/jeonghyeon/main readme/grpc.png"><br><br>
+<br><img src= "./MarkdownImage/jeonghyeon/main readme/nginx.png"  width="130" height="100">
+<img src= "./MarkdownImage/jeonghyeon/main readme/fastapi.png" width="130" height="100">
+<img src= "./MarkdownImage/jeonghyeon/main readme/grpc.png"  width="130" height="100"><br><br
 - Nginx: 웹서버를 위해 사용
 - FastAPI: 쿠버네티스 API를 외부에서 fastAPI를 통하여 호출, 실시간 영상을 받아오기 위해 사용
 - gRPC 클러스터내 파드간 API 호출보다 빠른 전송을 위해 사용하였음
