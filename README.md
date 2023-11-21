@@ -31,6 +31,7 @@
 
 ### 플로우 차트
 <img src= "./MarkdownImage/jeonghyeon/main readme/flow.png">
+
 ---
 ### 개발 규칙
 
